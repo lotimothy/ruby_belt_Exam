@@ -1,0 +1,32 @@
+<nav>
+  <div class="nav-wrapper red lighten-1">
+    <a href="#" class="brand-logo"><%= @borrower.first_name %></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/sessions/<%= @borrower.id %>" data-method="delete">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<ul>
+  <li>Name: <%= @borrower.first_name %> <%= @borrower.last_name %></li>
+  <li>Amount needed: $<%= @borrower.money %></li>
+  <li>Amount raised: $<%= @borrower.raised %> (from borrowers table)</li>
+  <li>Amount raised: $<%= @raised %> (from transactions table)</li>
+  <li>Amount raised: $<%= @raised2 %> (from transactions table)</li>
+</ul>
+
+<h5>List of people who lent you money:</h5>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Amount</td>
+  </tr>
+  <% @nicepeople.each do |people| %>
+      <tr>
+        <td><%= people.first_name %> <%= people.last_name %></td>
+        <td><%= people.email %></td>
+        <td>$<%= people.amount %></td>
+      </tr>
+  <% end %>
+</table>

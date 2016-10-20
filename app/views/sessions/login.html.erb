@@ -1,0 +1,17 @@
+<div class="container">
+  <h4>Login</h4>
+  <form action="/logging_in" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+    <div class="input-field">
+      <input type="text" name="email">
+      <label>Email</label>
+    </div>
+    <div class="input-field">
+      <input type="password" name="password">
+      <label>Password</label>
+    </div>
+    <button class="btn blue lighten-1" type="submit">Login</button>
+  </form>
+  <p><a href="/">Or click here to register</a></p>
+  <p><%= flash[:error] %></p>
+</div>

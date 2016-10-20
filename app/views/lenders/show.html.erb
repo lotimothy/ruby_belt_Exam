@@ -1,0 +1,68 @@
+<nav>
+  <div class="nav-wrapper green lighten-1">
+    <a href="#" class="brand-logo"><%= @lender.first_name %></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a href="/sessions/<%= @lender.id %>" data-method="delete">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<ul>
+  <li>Name: <%= @lender.first_name %> <%= @lender.last_name %></li>
+  <li>Account balance: $<%= @lender.money %></li>
+</ul>
+
+<h5>List of people in need of help:</h5>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Need money for</td>
+    <td>Reason for loan</td>
+    <td>Amount needed</td>
+    <td>Amount raised</td>
+    <td>Action</td>
+  </tr>
+  <% @needypeople.each do |people| %>
+      <tr>
+        <td><%= people.first_name %></td>
+        <td><%= people.purpose %></td>
+        <td><%= people.description %></td>
+        <td>$<%= people.money %></td>
+        <td>$<%= people.raised %></td>
+        <td>
+          <form action="/lending" method="post">
+            <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+            <input type="hidden" name="transaction[lender_id]" value="<%= @lender.id %>">
+            <input type="hidden" name="transaction[borrower_id]" value=<%= people.id %>>
+            <div class="input-field col s3">
+              <input type="text" name="transaction[amount]">
+              <label>Lend</label>
+            </div>
+            <button class="btn blue lighten-1" type="submit">Lend</button>
+          </form>
+        </td>
+      </tr>
+  <% end %>
+</table>
+
+<h5>List of people you lend money to:</h5>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Need money for</td>
+    <td>Reason for loan</td>
+    <td>Amount needed</td>
+    <td>Amount raised</td>
+    <td>Amount lent</td>
+  </tr>
+  <% @otherpeople.each do |people| %>
+      <tr>
+        <td><%= people.first_name %> <%= people.last_name %></td>
+        <td><%= people.purpose %></td>
+        <td><%= people.description %></td>
+        <td>$<%= people.money %></td>
+        <td>$<%= people.raised %></td>
+        <td>$<%= people.amount %></td>
+      </tr>
+  <% end %>
+</table>
